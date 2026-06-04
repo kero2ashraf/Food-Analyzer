@@ -21,15 +21,26 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; }
-html, body, .stApp { background: #0e0f11 !important; color: #e8e4dc !important; }
+
+html, body, .stApp {
+    background: #0e0f11 !important;
+    color: #e8e4dc !important;
+    font-family: 'DM Sans', sans-serif;
+}
 
 #MainMenu, header, footer, .stDeployButton { display: none !important; }
-.block-container { padding: 0 0 2rem 0 !important; max-width: 100% !important; }
+
+/* Remove ALL default Streamlit padding */
+.block-container {
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+.stApp > div { padding: 0 !important; }
+section.main > div { padding: 0 !important; }
 section[data-testid="stSidebar"] { display: none; }
 div[data-testid="stToolbar"] { display: none; }
 
-html { font-family: 'DM Sans', sans-serif; }
-
+/* Background gradients */
 .stApp {
     background: #0e0f11 !important;
     background-image:
@@ -39,104 +50,141 @@ html { font-family: 'DM Sans', sans-serif; }
 
 p, span, div, li { color: #e8e4dc; }
 
-[data-testid="stHorizontalBlock"] { gap: 0 !important; align-items: flex-start; }
-[data-testid="column"]:first-child {
-    border-right: 1px solid rgba(255,255,255,0.06) !important;
-    padding: 2rem 1.75rem !important;
-    min-height: calc(100vh - 90px);
+/* ── Two-column layout ── */
+[data-testid="stHorizontalBlock"] {
+    gap: 0 !important;
+    align-items: flex-start !important;
+    min-height: calc(100vh - 80px);
 }
+
+[data-testid="column"]:first-child {
+    border-right: 1px solid rgba(255,255,255,0.08) !important;
+    padding: 2rem 1.75rem 3rem 1.75rem !important;
+    min-height: calc(100vh - 80px);
+    background: rgba(255,255,255,0.01);
+}
+
 [data-testid="column"]:last-child {
-    padding: 2rem 2.5rem !important;
-    min-height: calc(100vh - 90px);
+    padding: 2.5rem 3rem 3rem 3rem !important;
+    min-height: calc(100vh - 80px);
+    overflow-y: auto;
 }
 
 /* ── Header ── */
 .app-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.75rem 2.5rem 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 0;
 }
-.logo-group { display: flex; align-items: baseline; gap: 0.5rem; }
-.logo-word { font-family: 'DM Serif Display', serif; font-size: 1.85rem; letter-spacing: -0.03em; color: #fff !important; }
+.logo-group { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.logo-word {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.85rem;
+    letter-spacing: -0.03em;
+    color: #fff !important;
+}
 .logo-word em { font-style: italic; color: #ff7a38 !important; }
 .logo-tag {
-    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
-    color: rgba(255,255,255,0.35) !important; padding: 3px 8px;
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; margin-left: 0.4rem;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35) !important;
+    padding: 3px 9px; border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px; margin-left: 0.4rem;
 }
-.header-status { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: rgba(255,255,255,0.4) !important; }
+.header-status {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.78rem; color: rgba(255,255,255,0.4) !important;
+}
 .status-dot {
     width: 7px; height: 7px; border-radius: 50%;
     background: #3ec97a; box-shadow: 0 0 8px #3ec97a;
     animation: pulse-dot 2s infinite; flex-shrink: 0;
 }
-@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.45} }
 
 /* ── Panel labels ── */
 .panel-label {
-    font-size: 0.68rem !important; font-weight: 600 !important;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(255,255,255,0.35) !important;
-    margin-bottom: 0.6rem; margin-top: 1.25rem; display: block;
+    font-size: 0.66rem !important; font-weight: 700 !important;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3) !important;
+    margin-bottom: 0.75rem; margin-top: 1.75rem; display: block;
 }
 .panel-label:first-child { margin-top: 0; }
 
 /* ── Model card ── */
 .model-card {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px; padding: 1rem 1.2rem; margin-top: 0.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 12px; padding: 1rem 1.25rem; margin-top: 0.75rem;
 }
 .model-name { font-size: 0.9rem; font-weight: 500; color: #e8e4dc !important; }
-.model-id   { font-size: 0.72rem; color: rgba(255,255,255,0.3) !important; font-family: monospace; margin-top: 3px; }
+.model-id   { font-size: 0.71rem; color: rgba(255,255,255,0.28) !important; font-family: monospace; margin-top: 4px; }
 .model-badge {
-    display: inline-block; font-size: 0.65rem; font-weight: 600;
-    letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
-    background: rgba(62,201,122,0.15); color: #3ec97a !important;
-    border: 1px solid rgba(62,201,122,0.25); margin-top: 7px;
+    display: inline-block; font-size: 0.64rem; font-weight: 700;
+    letter-spacing: 0.09em; text-transform: uppercase; padding: 2px 8px;
+    border-radius: 4px; background: rgba(62,201,122,0.12);
+    color: #3ec97a !important; border: 1px solid rgba(62,201,122,0.22);
+    margin-top: 8px;
 }
 
 /* ── Buttons ── */
+.stButton { margin-top: 0.5rem !important; }
 .stButton > button {
     font-family: 'DM Sans', sans-serif !important;
-    font-size: 0.9rem !important; font-weight: 600 !important;
-    letter-spacing: 0.03em !important; border: none !important;
-    border-radius: 10px !important; padding: 0.75rem 2rem !important;
+    font-size: 0.88rem !important; font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    border-radius: 10px !important; padding: 0.72rem 1.5rem !important;
     width: 100% !important; cursor: pointer !important;
-    transition: opacity 0.2s, transform 0.1s !important;
-    margin-top: 0.6rem !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
 }
-/* Analyze button — first button in left col */
+
+/* Analyze — primary orange */
+[data-testid="column"]:first-child div[data-testid="stButton"]:nth-of-type(1) > button,
 [data-testid="column"]:first-child .stButton:nth-of-type(1) > button {
     background: linear-gradient(135deg, #ff7a38 0%, #ff4e0d 100%) !important;
     color: #fff !important;
-    box-shadow: 0 4px 24px rgba(255,78,13,0.35) !important;
+    box-shadow: 0 4px 20px rgba(255,78,13,0.3), 0 1px 0 rgba(255,255,255,0.1) inset !important;
+    margin-top: 1rem !important;
 }
-/* Clear button — second button in left col */
+[data-testid="column"]:first-child div[data-testid="stButton"]:nth-of-type(1) > button:hover,
+[data-testid="column"]:first-child .stButton:nth-of-type(1) > button:hover {
+    box-shadow: 0 6px 28px rgba(255,78,13,0.45), 0 1px 0 rgba(255,255,255,0.1) inset !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Clear — ghost red */
+[data-testid="column"]:first-child div[data-testid="stButton"]:nth-of-type(2) > button,
 [data-testid="column"]:first-child .stButton:nth-of-type(2) > button {
-    background: rgba(255,255,255,0.05) !important;
-    color: rgba(255,255,255,0.5) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: rgba(255,255,255,0.04) !important;
+    color: rgba(255,255,255,0.4) !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
     box-shadow: none !important;
+    margin-top: 0.5rem !important;
 }
+[data-testid="column"]:first-child div[data-testid="stButton"]:nth-of-type(2) > button:hover,
 [data-testid="column"]:first-child .stButton:nth-of-type(2) > button:hover {
-    background: rgba(255,90,90,0.1) !important;
+    background: rgba(255,80,80,0.08) !important;
     color: #ff8080 !important;
-    border-color: rgba(255,90,90,0.25) !important;
+    border-color: rgba(255,80,80,0.22) !important;
 }
-.stButton > button:hover  { opacity: 0.9 !important; transform: translateY(-1px) !important; }
-.stButton > button:active { transform: translateY(0) !important; }
+
+.stButton > button:active { transform: translateY(0) !important; opacity: 0.85 !important; }
 
 /* ── File uploader ── */
 .stFileUploader { background: transparent !important; }
 .stFileUploader > div { background: transparent !important; border: none !important; }
 [data-testid="stFileUploadDropzone"] {
-    background: rgba(255,122,56,0.04) !important;
-    border: 2px dashed rgba(255,122,56,0.3) !important;
-    border-radius: 14px !important; color: rgba(255,255,255,0.5) !important;
+    background: rgba(255,122,56,0.03) !important;
+    border: 2px dashed rgba(255,122,56,0.28) !important;
+    border-radius: 14px !important; color: rgba(255,255,255,0.45) !important;
+    padding: 1.5rem !important;
 }
 [data-testid="stFileUploadDropzone"]:hover {
-    border-color: rgba(255,122,56,0.6) !important;
-    background: rgba(255,122,56,0.07) !important;
+    border-color: rgba(255,122,56,0.55) !important;
+    background: rgba(255,122,56,0.06) !important;
 }
 
 /* ── Selectbox ── */
@@ -147,114 +195,140 @@ p, span, div, li { color: #e8e4dc; }
 }
 
 /* ── Misc ── */
-[data-testid="stImage"] img { border-radius: 14px; }
+[data-testid="stImage"] { margin-top: 1rem !important; }
+[data-testid="stImage"] img { border-radius: 14px; width: 100%; }
 .stSpinner > div { color: #ff7a38 !important; }
 [data-testid="stExpander"] {
     background: rgba(255,255,255,0.03) !important;
     border: 1px solid rgba(255,255,255,0.07) !important;
     border-radius: 12px !important;
+    margin-top: 1.5rem !important;
 }
 
 /* ── Section heading ── */
 .section-heading {
-    font-size: 0.68rem !important; font-weight: 600 !important;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(255,255,255,0.35) !important;
+    font-size: 0.66rem !important; font-weight: 700 !important;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3) !important;
     margin-bottom: 1rem; padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(255,255,255,0.06); display: block;
 }
 
 /* ── Meal hero ── */
-.meal-hero { margin-bottom: 2rem; }
+.meal-hero { margin-bottom: 2.5rem; }
 .meal-name-big {
     font-family: 'DM Serif Display', serif; font-size: 2.6rem; line-height: 1.1;
-    letter-spacing: -0.02em; color: #fff !important; margin-bottom: 0.5rem;
+    letter-spacing: -0.02em; color: #fff !important; margin-bottom: 0.6rem;
 }
-.meal-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.75rem; align-items: center; }
+.meal-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; align-items: center; }
 .meta-pill {
-    font-size: 0.73rem; font-weight: 500; padding: 4px 10px; border-radius: 20px;
-    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65) !important;
+    font-size: 0.73rem; font-weight: 500; padding: 5px 12px; border-radius: 20px;
+    background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.6) !important;
     border: 1px solid rgba(255,255,255,0.1);
 }
-.meta-pill.orange { background: rgba(255,122,56,0.15); color: #ff9a68 !important; border-color: rgba(255,122,56,0.25); }
-.conf-high { color: #3ec97a !important; }
-.conf-med  { color: #f5c842 !important; }
-.conf-low  { color: #ff5a5a !important; }
+.meta-pill.orange { background: rgba(255,122,56,0.14); color: #ff9a68 !important; border-color: rgba(255,122,56,0.25); }
+.conf-high { color: #3ec97a !important; background: rgba(62,201,122,0.1) !important; border-color: rgba(62,201,122,0.2) !important; }
+.conf-med  { color: #f5c842 !important; background: rgba(245,200,66,0.1) !important; border-color: rgba(245,200,66,0.2) !important; }
+.conf-low  { color: #ff5a5a !important; background: rgba(255,90,90,0.1) !important; border-color: rgba(255,90,90,0.2) !important; }
 
 /* ── Nutrition grid ── */
-.nutrition-section { margin-bottom: 2rem; }
-.nutrition-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 10px; }
+.nutrition-section { margin-bottom: 2.5rem; }
+.nutrition-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; margin-top: 1rem; }
 .nut-card {
     background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px; padding: 1rem 0.5rem; text-align: center; transition: border-color 0.2s;
+    border-radius: 14px; padding: 1.1rem 0.5rem; text-align: center;
+    transition: border-color 0.2s, background 0.2s;
 }
-.nut-card:hover { border-color: rgba(255,122,56,0.3); }
-.nut-val   { font-size: 1.5rem; font-weight: 600; color: #ff7a38 !important; line-height: 1; }
-.nut-unit  { font-size: 0.6rem; color: rgba(255,255,255,0.3) !important; margin-top: 2px; }
-.nut-label { font-size: 0.68rem; color: rgba(255,255,255,0.45) !important; margin-top: 6px; font-weight: 500; }
+.nut-card:hover { border-color: rgba(255,122,56,0.3); background: rgba(255,122,56,0.04); }
+.nut-val   { font-size: 1.55rem; font-weight: 700; color: #ff7a38 !important; line-height: 1; }
+.nut-unit  { font-size: 0.6rem; color: rgba(255,255,255,0.25) !important; margin-top: 3px; }
+.nut-label { font-size: 0.67rem; color: rgba(255,255,255,0.42) !important; margin-top: 7px; font-weight: 600; letter-spacing: 0.04em; }
 
 /* ── Health bar ── */
 .health-bar-wrap {
     background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 14px; padding: 1.2rem 1.5rem; margin-bottom: 2rem;
-    display: flex; align-items: center; gap: 1.5rem;
+    border-radius: 16px; padding: 1.4rem 1.75rem; margin-bottom: 2.5rem;
+    margin-top: 1rem;
+    display: flex; align-items: center; gap: 1.75rem;
 }
 .health-score-num {
-    font-family: 'DM Serif Display', serif; font-size: 3rem;
-    line-height: 1; min-width: 64px; text-align: center;
+    font-family: 'DM Serif Display', serif; font-size: 3.2rem;
+    line-height: 1; min-width: 68px; text-align: center;
 }
-.health-bar-track { flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden; }
-.health-bar-fill  { height:100%; border-radius:3px; }
-.health-notes { font-size: 0.82rem; color: rgba(255,255,255,0.45) !important; margin-top: 8px; }
+.health-bar-track { flex:1; height:6px; background:rgba(255,255,255,0.09); border-radius:3px; overflow:hidden; }
+.health-bar-fill  { height:100%; border-radius:3px; transition: width 0.6s ease; }
+.health-notes { font-size: 0.83rem; color: rgba(255,255,255,0.42) !important; margin-top: 10px; line-height: 1.5; }
 
 /* ── Detail grid ── */
-.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; margin-top: 1rem; }
 .detail-block {
     background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px; padding: 1.2rem 1.4rem;
+    border-radius: 14px; padding: 1.25rem 1.5rem;
 }
-.detail-block ul { list-style: none; padding: 0; margin-top: 0.6rem; }
+.detail-block ul { list-style: none; padding: 0; margin: 0.75rem 0 0 0; }
 .detail-block ul li {
-    font-size: 0.84rem; color: rgba(255,255,255,0.6) !important;
-    padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-    display: flex; align-items: center; gap: 8px;
+    font-size: 0.84rem; color: rgba(255,255,255,0.58) !important;
+    padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; gap: 9px;
 }
-.detail-block ul li::before { content: "·"; color: #ff7a38; }
+.detail-block ul li::before { content: "·"; color: #ff7a38; font-size: 1.2em; }
 .detail-block ul li:last-child { border-bottom: none; }
 .tag-chip {
-    display: inline-block; font-size: 0.72rem; font-weight: 500;
-    padding: 3px 10px; border-radius: 20px;
-    background: rgba(62,201,122,0.1); color: #5edd98 !important;
-    border: 1px solid rgba(62,201,122,0.2); margin: 3px 3px 0 0;
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    padding: 4px 11px; border-radius: 20px;
+    background: rgba(62,201,122,0.09); color: #5edd98 !important;
+    border: 1px solid rgba(62,201,122,0.18); margin: 4px 4px 0 0;
 }
 .allergen-chip {
-    display: inline-block; font-size: 0.72rem; font-weight: 500;
-    padding: 3px 10px; border-radius: 20px;
-    background: rgba(255,90,90,0.1); color: #ff8080 !important;
-    border: 1px solid rgba(255,90,90,0.2); margin: 3px 3px 0 0;
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    padding: 4px 11px; border-radius: 20px;
+    background: rgba(255,90,90,0.09); color: #ff8080 !important;
+    border: 1px solid rgba(255,90,90,0.18); margin: 4px 4px 0 0;
 }
 
 /* ── Agent log ── */
 .agent-log {
-    background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px; padding: 1rem 1.3rem; margin-bottom: 1.5rem;
-    font-family: monospace; font-size: 0.78rem; color: rgba(255,255,255,0.45) !important;
+    background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 1.1rem 1.4rem; margin-bottom: 2rem;
+    font-family: monospace; font-size: 0.78rem;
 }
-.agent-step        { padding: 3px 0; color: rgba(255,255,255,0.45) !important; }
+.agent-step        { padding: 4px 0; color: rgba(255,255,255,0.4) !important; }
 .agent-step.done   { color: #3ec97a !important; }
 .agent-step.active { color: #f5c842 !important; }
 .agent-step.error  { color: #ff5a5a !important; }
 
 /* ── Fallback notice ── */
 .fallback-notice {
-    background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.2);
-    border-radius: 8px; padding: 0.6rem 1rem;
-    font-size: 0.8rem; color: #f5c842 !important; margin-bottom: 1rem;
+    background: rgba(245,200,66,0.07); border: 1px solid rgba(245,200,66,0.2);
+    border-radius: 10px; padding: 0.7rem 1.1rem;
+    font-size: 0.8rem; color: #f5c842 !important; margin-bottom: 1.75rem;
 }
 
 /* ── Empty states ── */
-.empty-state-title { font-family:'DM Serif Display',serif; font-size:2rem; color:rgba(255,255,255,0.15) !important; }
-.empty-state-sub   { font-size:0.85rem; color:rgba(255,255,255,0.2) !important; max-width:320px; }
+.empty-state-title { font-family:'DM Serif Display',serif; font-size:2rem; color:rgba(255,255,255,0.13) !important; margin-bottom: 0.5rem; }
+.empty-state-sub   { font-size:0.85rem; color:rgba(255,255,255,0.2) !important; max-width:300px; line-height: 1.6; }
+
+/* ── Mobile responsive ── */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column; align-items: flex-start;
+        gap: 0.75rem; padding: 1.25rem 1.25rem;
+    }
+    .header-status { align-self: flex-start; }
+    [data-testid="column"]:first-child {
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+        padding: 1.5rem 1.25rem 2rem !important;
+    }
+    [data-testid="column"]:last-child {
+        padding: 1.75rem 1.25rem 2rem !important;
+    }
+    .nutrition-grid { grid-template-columns: repeat(3,1fr) !important; }
+    .detail-grid    { grid-template-columns: 1fr !important; }
+    .meal-name-big  { font-size: 1.9rem !important; }
+    .health-bar-wrap { flex-direction: column; gap: 1rem; padding: 1.25rem; }
+    .health-score-num { font-size: 2.5rem; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -304,7 +378,7 @@ Use exactly this structure:
 }
 Return ONLY the JSON object."""
 
-# ── Session state init ────────────────────────────────────────────────────────
+# ── Session state ─────────────────────────────────────────────────────────────
 if "result"       not in st.session_state: st.session_state.result       = None
 if "used_model"   not in st.session_state: st.session_state.used_model   = None
 if "clear_flag"   not in st.session_state: st.session_state.clear_flag   = False
@@ -396,8 +470,6 @@ def analyze_agentic(primary_model: str, img_b64: str, log_placeholder):
     raise RuntimeError("All models failed. Check API key or try again later.")
 
 def render_results(data: dict, used_model: str, primary_model: str):
-    """Render the full analysis results."""
-
     if used_model != primary_model:
         st.markdown(
             f'<div class="fallback-notice">⚡ Fallback used: <b>{used_model}</b></div>',
@@ -415,7 +487,7 @@ def render_results(data: dict, used_model: str, primary_model: str):
     st.markdown(f"""
     <div class="meal-hero">
       <div class="meal-name-big">{data.get("meal_name","Unknown")}</div>
-      <div style="font-size:0.88rem;color:rgba(255,255,255,0.45);margin-top:6px;">
+      <div style="font-size:0.88rem;color:rgba(255,255,255,0.42);margin-top:8px;line-height:1.55;">
         {data.get("description","")}
       </div>
       <div class="meal-meta">
@@ -450,11 +522,11 @@ def render_results(data: dict, used_model: str, primary_model: str):
     else:                bar_color = score_hex = "#ff5a5a"
 
     st.markdown(f"""
-    <span class="section-heading" style="margin-top:1.5rem;display:block;">Health Assessment</span>
+    <span class="section-heading" style="margin-top:2rem;display:block;">Health Assessment</span>
     <div class="health-bar-wrap">
       <div>
         <div class="health-score-num" style="color:{score_hex};">{score}</div>
-        <div style="font-size:0.65rem;color:rgba(255,255,255,0.25);text-align:center;">/10</div>
+        <div style="font-size:0.63rem;color:rgba(255,255,255,0.22);text-align:center;margin-top:3px;">/10</div>
       </div>
       <div style="flex:1;">
         <div class="health-bar-track">
@@ -471,7 +543,7 @@ def render_results(data: dict, used_model: str, primary_model: str):
     allergens_html = "".join([f'<span class="allergen-chip">⚠ {a}</span>' for a in allergens])
 
     st.markdown(f"""
-    <span class="section-heading" style="margin-top:1.5rem;display:block;">Details</span>
+    <span class="section-heading" style="margin-top:2rem;display:block;">Details</span>
     <div class="detail-grid">
       <div class="detail-block">
         <span class="section-heading">Ingredients</span>
@@ -479,8 +551,8 @@ def render_results(data: dict, used_model: str, primary_model: str):
       </div>
       <div class="detail-block">
         <span class="section-heading">Diet Tags</span>
-        <div style="margin-top:0.5rem;">{tags_html if tags_html else '<span style="color:rgba(255,255,255,0.2)">—</span>'}</div>
-        {"<span class='section-heading' style='margin-top:1rem;display:block;'>Allergens</span><div>"+allergens_html+"</div>" if allergens else ""}
+        <div style="margin-top:0.6rem;">{tags_html if tags_html else '<span style="color:rgba(255,255,255,0.18)">—</span>'}</div>
+        {"<span class='section-heading' style='margin-top:1.25rem;display:block;'>Allergens</span><div>"+allergens_html+"</div>" if allergens else ""}
       </div>
     </div>
     """, unsafe_allow_html=True)
@@ -523,7 +595,7 @@ with col_left:
             image = image.resize(
                 (int(image.width*ratio), int(image.height*ratio)), Image.LANCZOS
             )
-        st.image(image, use_column_width=True)
+        st.image(image, use_container_width=True)
 
     st.markdown('<span class="panel-label">Vision Model</span>', unsafe_allow_html=True)
 
@@ -546,14 +618,14 @@ with col_left:
         clear_btn   = st.button("✕ Clear Results",    key="btn_clear")
     else:
         st.markdown("""
-        <div style="color:rgba(255,255,255,0.2);font-size:0.82rem;text-align:center;padding:1.5rem 0;">
+        <div style="color:rgba(255,255,255,0.18);font-size:0.82rem;text-align:center;
+                    padding:2rem 0;letter-spacing:0.02em;">
             Upload a photo to begin
         </div>
         """, unsafe_allow_html=True)
         analyze_btn = False
         clear_btn   = False
 
-    # handle clear
     if clear_btn:
         st.session_state.result     = None
         st.session_state.used_model = None
@@ -563,12 +635,11 @@ with col_left:
 # ═══════════════ RIGHT COLUMN ═══════════════
 with col_right:
 
-    # No upload
     if not uploaded:
         st.markdown("""
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
-                    height:70vh;text-align:center;gap:1rem;">
-          <div style="font-size:4rem;opacity:0.12">🔬</div>
+                    height:72vh;text-align:center;gap:1.25rem;">
+          <div style="font-size:4rem;opacity:0.1">🔬</div>
           <div class="empty-state-title">Ready to analyze</div>
           <div class="empty-state-sub">
             Upload a food photo on the left to get instant AI-powered
@@ -577,23 +648,20 @@ with col_right:
         </div>
         """, unsafe_allow_html=True)
 
-    # Uploaded, results already cached
     elif st.session_state.result is not None and not analyze_btn:
         render_results(st.session_state.result, st.session_state.used_model, model_id)
 
-    # Uploaded, waiting for click
     elif not analyze_btn:
         st.markdown("""
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
-                    height:60vh;text-align:center;gap:0.75rem;">
-          <div style="font-size:3rem;opacity:0.25">⬅</div>
-          <div style="font-size:0.9rem;color:rgba(255,255,255,0.3);">
+                    height:62vh;text-align:center;gap:1rem;">
+          <div style="font-size:3rem;opacity:0.2">⬅</div>
+          <div style="font-size:0.9rem;color:rgba(255,255,255,0.28);line-height:1.5;">
             Click <b style="color:#ff7a38">Analyze with AI</b> to start
           </div>
         </div>
         """, unsafe_allow_html=True)
 
-    # Run analysis
     else:
         if OPENROUTER_API_KEY == "YOUR_API_KEY_HERE":
             st.error("⚠️ No API key configured.")
@@ -611,7 +679,7 @@ with col_right:
                     log_area.empty()
                     st.error(f"❌ {ex}")
                     st.markdown("""
-                    <div style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-top:0.5rem;">
+                    <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-top:0.75rem;">
                       Try again in a few minutes — free models have rate limits per day.
                     </div>""", unsafe_allow_html=True)
                 except Exception as ex:
